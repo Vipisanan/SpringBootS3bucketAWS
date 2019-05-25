@@ -2,8 +2,10 @@ package com.example.demo.Service;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.services.dynamodbv2.xspec.S;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -65,6 +67,12 @@ public class AmazonClient {
         fos.close();
         return conFile;
 
+    }
+
+    public String deleteFileFromS3Bucket(String url){
+        String fileName = url.substring(url.lastIndexOf("/")+1);
+        s3client.deleteObject(new DeleteObjectRequest(bucketName , fileName));
+        return "deleted";
     }
 
 

@@ -20,4 +20,9 @@ public class BucketController {
     public String upload(@RequestPart(value = "file")MultipartFile multipartFile){
         return this.amazonClient.uploadFile(multipartFile);
     }
+
+    @DeleteMapping("delete")
+    public String delete(@RequestPart(value = "url") String fileUrl){
+        return this.amazonClient.deleteFileFromS3Bucket(fileUrl);
+    }
 }
